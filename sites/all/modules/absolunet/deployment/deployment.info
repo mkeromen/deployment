@@ -1,0 +1,6 @@
+name = "Deployment"
+description = "Provides deployment module for Drupal"
+core = 7.x
+package = "Absolunet"
+
+dependencies[] = article
