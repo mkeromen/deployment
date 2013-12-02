@@ -14,7 +14,11 @@ function deployment_install() {
  * Implements hook_update_N()
  */
 function deployment_update_7001() {
-    print 'deployment';
     features_revert(array('article'));
+}
+
+function deployment_update_7002() {
+    variable_set('admin_theme', 'seven');
+    variable_set('clean_url', 1);
 }
 ?>
