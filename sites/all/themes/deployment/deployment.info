@@ -1,0 +1,13 @@
+name = Deployment
+description = Thème pour les tests de déploiment avec Drupal
+package = Absolunet
+version = 1.0
+core = 7.x
+
+; Stylesheets  ---------------------------------------------------------------
+stylesheets[all][] = css/style.css
+
+; Regions --------------------------------------------------------------------
+regions[header] = Header
+regions[content] = Main content
+regions[footer] = Footer

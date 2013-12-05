@@ -1,0 +1,12 @@
+name = Accueil
+description = Export du type de contenu page d'accueil
+core = 7.x
+package = Absolunet
+version = 7.x-1.0
+project = accueil
+dependencies[] = features
+dependencies[] = text
+features[features_api][] = api:2
+features[field_instance][] = node-page_d_accueil-body
+features[node][] = page_d_accueil
+features_exclude[dependencies][article] = article
