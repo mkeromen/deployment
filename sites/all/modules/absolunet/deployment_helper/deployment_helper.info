@@ -1,0 +1,4 @@
+name = "Deployment Helper"
+description = "Fournit une API sur les fonctionnalités core de Drupal"
+core = 7.x
+package = "Absolunet"

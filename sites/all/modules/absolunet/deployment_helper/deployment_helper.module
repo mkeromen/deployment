@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Utilisé pour exposer une page pour les tests
+ * Implements hook_menu()
+ * @return mixed
+ */
+function deployment_helper_menu() {
+
+    $items['test-deployment'] = array(
+        'title' => 'Deployment page',
+        'page callback' => '_test',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+}
+
+function _test() {
+
+    $rid = _get_rid_by_name('Super administrateur');
+    $file_content_access = file_get_contents(__DIR__ . '/super_administrateur_access.json');
+    $roles_access_to_active = json_decode($file_content_access, true);
+
+    user_role_change_permissions($rid, $roles_access_to_active);
+
+    /*var_dump($roles_access);
+    exit;*/
+
+    return 'Test deployment';
+}
+
+/**
+ * Move this part in helper function
+ */
+function _create_node($type, $title) {
+    $node = new stdClass();
+    $node->type = $type;
+    $node->title = $title;
+    $node->status = 1;
+    $node->language = 'und';
+    node_save($node);
+    return $node->nid;
+}
+
+function _set_new_role($role_name, $weight, $access_file_path) {
+
+    if(_create_role($role_name, $weight)) {
+        $rid = _get_rid_by_name($role_name);
+        $file_content_access = file_get_contents(__DIR__ . '/config/super_administrateur_access.json');
+        $roles_access_to_active = json_decode($file_content_access, true);
+
+        user_role_change_permissions($rid, $roles_access_to_active);
+    }
+}
+
+
+function _create_role($name, $weight) {
+    $role = new stdClass();
+    $role->name = $name;
+    $role->weight = $weight;
+    return user_role_save($role);
+}
+
+function _get_rid_by_name($role_name) {
+    $rid = db_select('role', 'r')
+        ->fields('r', array('rid'))
+        ->condition('name', $role_name, '=')
+        ->execute()
+        ->fetchField();
+
+    return $rid;
+}
+?>

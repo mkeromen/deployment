@@ -1,0 +1,4 @@
+name = "Feature flag"
+description = "Test des features par flag"
+core = 7.x
+package = "Absolunet"

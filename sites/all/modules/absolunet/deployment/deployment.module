@@ -28,23 +28,6 @@ function deployment_menu() {
     return $items;
 }
 
-function _test() {
-
-    $node = new stdClass();
-    $node->type = 'page_d_accueil';
-    $node->title = 'Test accueil';
-    $node->status = 1;
-    $node->language = 'und';
-    node_save($node);
-    var_dump($node->nid);
-
-    //$permissions = _get_permissions_by_rid(3);
-    /*var_dump($roles_access);
-    exit;*/
-
-    return 'Test deployment';
-}
-
 /**
  * Implements hook_update_N()
  */
@@ -69,59 +52,19 @@ function deployment_update_7004() {
 function deployment_update_7005() {
     theme_enable(array('deployment'));
     variable_set('theme_default', 'deployment');
-    // Ajout d'une nouvelle features pour le type de contenu accueil
-    features_revert(array('accueil'));
-    // Création d'une node accueil
-    $nid = _create_node('page_d_accueil', 'Accueil');
-    // Ajout d'un rôle avec les permissions associés
-    _set_new_role('Super administrateur', 3);
-    // CONFIG
-    // Use the theme administration editing ou creating
     variable_set('node_admin_theme', 1);
-    // Set default front page
+
+    features_revert(array('accueil'));
+    $nid = _create_node('page_d_accueil', 'Accueil');
+    _set_new_role('Super administrateur', 3);
     variable_set('site_frontpage', 'node/' . $nid);
 }
 
-
-/**
- * Move this part in helper function
- */
-function _create_node($type, $title) {
-    $node = new stdClass();
-    $node->type = $type;
-    $node->title = $title;
-    $node->status = 1;
-    $node->language = 'und';
-    node_save($node);
-    return $node->nid;
+function deployment_update_7006() {
+    // Ajout des modules menu et feature_flag
+    module_enable(array('menu', 'feature_flag'));
+    // Ajouter les droits pour utiliser le menu au Super administrateur
+    
 }
 
-function _set_new_role($role_name, $weight) {
-
-    if(_create_role($role_name, $weight)) {
-        $rid = _get_rid_by_name($role_name);
-        $file_content_access = file_get_contents(__DIR__ . '/super_administrateur_access.json');
-        $roles_access_to_active = json_decode($file_content_access, true);
-
-        user_role_change_permissions($rid, $roles_access_to_active);
-    }
-}
-
-
-function _create_role($name, $weight) {
-    $role = new stdClass();
-    $role->name = $name;
-    $role->weight = $weight;
-    user_role_save($role);
-}
-
-function _get_rid_by_name($role_name) {
-    $rid = db_select('role', 'r')
-        ->fields('r', array('rid'))
-        ->condition('name', $role_name, '=')
-        ->execute()
-        ->fetchField();
-
-    return $rid;
-}
 ?>

@@ -4,3 +4,5 @@ core = 7.x
 package = "Absolunet"
 
 dependencies[] = article
+dependencies[] = accueil
+dependencies[] = deployment_helper
