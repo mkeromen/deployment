@@ -1,0 +1,11 @@
+name = Configuration core des blocs
+description = Gérer l'état de nos modules qui viennent avec le core
+core = 7.x
+package = Absolunet
+version = 7.x-1.0
+project = core_config_blocks
+dependencies[] = fe_block
+features[fe_block_settings][] = system-help
+features[fe_block_settings][] = system-management
+features[fe_block_settings][] = system-navigation
+features[features_api][] = api:2

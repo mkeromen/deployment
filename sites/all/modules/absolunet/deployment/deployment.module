@@ -1,4 +1,5 @@
 <?php
+define('SA_ACCESS_PATH', __DIR__ . '/config/super_administrateur_access.json');
 
 /**
  * Implements hook_install()
@@ -61,10 +62,10 @@ function deployment_update_7005() {
 }
 
 function deployment_update_7006() {
-    // Ajout des modules menu et feature_flag
-    module_enable(array('menu', 'feature_flag'));
-    // Ajouter les droits pour utiliser le menu au Super administrateur
-    
+    module_enable(array('deployment_helper', 'menu', 'core_config_blocks'));
+    features_revert(array('core_config_blocks'));
+    $rid = _get_rid_by_name('Super administrateur');
+    _set_user_permissions($rid, SA_ACCESS_PATH);
 }
 
 ?>
