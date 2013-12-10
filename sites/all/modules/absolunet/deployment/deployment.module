@@ -31,8 +31,6 @@ function deployment_menu() {
 
 function _test() {
 
-
-
     $modules = user_permission_get_modules();
     var_dump($modules);
 
@@ -101,6 +99,24 @@ function deployment_update_7008() {
     );
 
     user_save('', $fields);
+}
+
+function deployment_update_7009() {
+    // Enable menu_import
+    module_enable(array('menu_import'));
+    // Ajouter les permissions selon le rôle
+    $rid = _get_rid_by_name('Super administrateur');
+    _set_user_permissions($rid, SA_ACCESS_PATH);
+    // Création d'un menu
+    menu_save(array(
+        'menu_name' => 'menu-top-menu',
+        'title' => 'Menu top',
+        'description' => 'Super menu du haut'
+    ));
+    // Importation de la structure
+    menu_import_file(__DIR__ . '/config/menu-top-menu-export.txt', 'menu-top-menu');
+    // Revert de la feature core block config
+    features_revert(array('core_config_blocks'));
 }
 
 ?>

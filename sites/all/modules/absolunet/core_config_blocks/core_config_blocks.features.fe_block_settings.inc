@@ -12,6 +12,29 @@ function core_config_blocks_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
+  $export['menu-menu-top-menu'] = array(
+    'cache' => -1,
+    'delta' => 'menu-top-menu',
+    'module' => 'menu',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'deployment' => array(
+        'region' => 'header',
+        'status' => 1,
+        'theme' => 'deployment',
+        'weight' => 0,
+      ),
+    ),
+  );
+
   $export['system-help'] = array(
     'cache' => -1,
     'custom' => 0,

@@ -41,5 +41,6 @@
     "select account cancellation method": 1,
     "view own unpublished content": 1,
     "view revisions": 1,
-    "view the administration theme": 1
+    "view the administration theme": 1,
+    "import or export menu":1
 }
