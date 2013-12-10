@@ -31,9 +31,14 @@ function deployment_menu() {
 
 function _test() {
 
-    $rid = _get_rid_by_name('Super administrateur');
+
+
+    $modules = user_permission_get_modules();
+    var_dump($modules);
+
+    /*$rid = _get_rid_by_name('Super administrateur');
     //var_dump($rid);
-    _set_user_permissions($rid, SA_ACCESS_PATH);
+    _set_user_permissions($rid, SA_ACCESS_PATH);*/
 
     return 'Test deployment';
 }
