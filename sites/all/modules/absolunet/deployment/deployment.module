@@ -29,6 +29,15 @@ function deployment_menu() {
     return $items;
 }
 
+function _test() {
+
+    $rid = _get_rid_by_name('Super administrateur');
+    //var_dump($rid);
+    _set_user_permissions($rid, SA_ACCESS_PATH);
+
+    return 'Test deployment';
+}
+
 /**
  * Implements hook_update_N()
  */
@@ -64,6 +73,11 @@ function deployment_update_7005() {
 function deployment_update_7006() {
     module_enable(array('deployment_helper', 'menu', 'core_config_blocks'));
     features_revert(array('core_config_blocks'));
+    $rid = _get_rid_by_name('Super administrateur');
+    _set_user_permissions($rid, SA_ACCESS_PATH);
+}
+
+function deployment_update_7007() {
     $rid = _get_rid_by_name('Super administrateur');
     _set_user_permissions($rid, SA_ACCESS_PATH);
 }
