@@ -5,7 +5,12 @@
  */
 
 /**
- * Move this part in helper function
+ * Création d'une node
+ * pour le setup de page de configuration uniquement
+ * comme la page d'accueil du site
+ * @param $type
+ * @param $title
+ * @return mixed
  */
 function _create_node($type, $title) {
     $node = new stdClass();
@@ -17,6 +22,13 @@ function _create_node($type, $title) {
     return $node->nid;
 }
 
+/**
+ * Création d'un compte et setup des permissions (modules)
+ * pour la configuration des comptes sa + webmestre
+ * @param $role_name
+ * @param $weight
+ * @param $file_access_path
+ */
 function _set_new_role($role_name, $weight, $file_access_path) {
 
     if(_create_role($role_name, $weight)) {
@@ -25,13 +37,23 @@ function _set_new_role($role_name, $weight, $file_access_path) {
     }
 }
 
+/**
+ * Setup des permissions
+ * @param $rid
+ * @param $file_access_path
+ */
 function _set_user_permissions($rid, $file_access_path) {
     $file_content_access = file_get_contents($file_access_path);
     $roles_access_to_active = json_decode($file_content_access, true);
     user_role_change_permissions($rid, $roles_access_to_active);
 }
 
-
+/**
+ * Création d'un rôle avec son poids
+ * @param $name
+ * @param $weight
+ * @return boolean
+ */
 function _create_role($name, $weight) {
     $role = new stdClass();
     $role->name = $name;
@@ -39,6 +61,11 @@ function _create_role($name, $weight) {
     return user_role_save($role);
 }
 
+/**
+ * Récupérer le rôle ID par le nom de rôle
+ * @param $role_name
+ * @return mixed
+ */
 function _get_rid_by_name($role_name) {
     $rid = db_select('role', 'r')
         ->fields('r', array('rid'))

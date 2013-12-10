@@ -87,4 +87,20 @@ function deployment_update_7007() {
     _set_user_permissions($rid, SA_ACCESS_PATH);
 }
 
+function deployment_update_7008() {
+    $rid = _get_rid_by_name('Super administrateur');
+    $fields = array(
+        'name' => 'mkeromen',
+        'mail' => 'mkeromen@absolunet.com',
+        'pass' => 'sa',
+        'init' => 'mkeromen@absolunet.com',
+        'status' => 1,
+        'roles' => array(
+            $rid => 'Super administrateur'
+        )
+    );
+
+    user_save('', $fields);
+}
+
 ?>
