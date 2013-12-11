@@ -6,7 +6,7 @@ define('ROLE_SA', 'Super administrateur');
 function check_blocks_flag($block_machine_name) {
 
     global $user;
-    //var_dump($user);
+    var_dump($user);
 
     // TODO : Mettre en cache le content
     $file_content = file_get_contents(BLOCKS_FLAG_PATH);
@@ -18,10 +18,12 @@ function check_blocks_flag($block_machine_name) {
     $blocks = $blocks_flag[$host];
     $properties = $blocks[$block_machine_name];
 
+    var_dump($blocks);
     if(isset($properties["is_visible"])) {
         $block_visibility = (bool) $properties["is_visible"];
 
         if(!$block_visibility && (!in_array(ROLE_WEBMESTRE, $user->roles) && !in_array(ROLE_SA, $user->roles))) {
+            var_dump('On cache');
             $is_visible = FALSE;
         }
 
