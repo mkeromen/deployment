@@ -18,7 +18,7 @@ function article_default_fe_block_settings() {
     'delta' => 'article-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<?php return true; ?>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -27,9 +27,15 @@ function article_default_fe_block_settings() {
         'theme' => 'bartik',
         'weight' => -8,
       ),
+      'deployment' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'deployment',
+        'weight' => -8,
+      ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 2,
   );
 
   return $export;

@@ -1,0 +1,12 @@
+name = Page de contenu
+description = Fonctionnalité pour les pages de contenu
+core = 7.x
+package = Absolunet
+version = 7.x-1.0
+project = content_page
+dependencies[] = features
+dependencies[] = text
+features[features_api][] = api:2
+features[field_instance][] = node-content_page-body
+features[node][] = content_page
+features_exclude[dependencies][article] = article

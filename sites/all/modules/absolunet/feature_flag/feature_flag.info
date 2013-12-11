@@ -1,4 +1,4 @@
 name = "Feature flag"
-description = "Test des features par flag"
+description = "Permet d'ajouter de vérifier si un bloc doit être rendus public en production"
 core = 7.x
 package = "Absolunet"

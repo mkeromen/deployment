@@ -19,7 +19,7 @@ function article_node_info() {
     'article' => array(
       'name' => t('Article'),
       'base' => 'node_content',
-      'description' => t('Article sur le site'),
+      'description' => t('Fonctionnalité des articles sur le site'),
       'has_title' => '1',
       'title_label' => t('Titre'),
       'help' => '',

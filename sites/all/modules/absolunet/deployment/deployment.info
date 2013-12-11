@@ -5,4 +5,5 @@ package = "Absolunet"
 
 dependencies[] = article
 dependencies[] = accueil
+dependencies[] = content_page
 dependencies[] = deployment_helper

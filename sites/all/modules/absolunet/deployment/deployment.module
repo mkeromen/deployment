@@ -1,5 +1,5 @@
 <?php
-define('SA_ACCESS_PATH', __DIR__ . '/config/super_administrateur_access.json');
+define('PERMISSIONS_PATH', __DIR__ . '/config/permissions.json');
 
 /**
  * Implements hook_install()
@@ -31,8 +31,16 @@ function deployment_menu() {
 
 function _test() {
 
-    $modules = user_permission_get_modules();
-    var_dump($modules);
+    /*$file_content_access = file_get_contents(PERMISSIONS_PATH);
+    $roles_access_to_active = json_decode($file_content_access, true);
+    var_dump($roles_access_to_active);*/
+
+    $visibility = check_blocks_flag('block_list_articles');
+    print '---';
+    var_dump($visibility);
+
+    /*$modules = user_permission_get_modules();
+    var_dump($modules);*/
 
     /*$rid = _get_rid_by_name('Super administrateur');
     //var_dump($rid);
@@ -76,47 +84,38 @@ function deployment_update_7005() {
 function deployment_update_7006() {
     module_enable(array('deployment_helper', 'menu', 'core_config_blocks'));
     features_revert(array('core_config_blocks'));
-    $rid = _get_rid_by_name('Super administrateur');
-    _set_user_permissions($rid, SA_ACCESS_PATH);
+    _set_user_permissions('Super administrateur', PERMISSIONS_PATH);
 }
 
 function deployment_update_7007() {
     $rid = _get_rid_by_name('Super administrateur');
-    _set_user_permissions($rid, SA_ACCESS_PATH);
+    _set_user_permissions($rid, PERMISSIONS_PATH);
 }
 
 function deployment_update_7008() {
-    $rid = _get_rid_by_name('Super administrateur');
-    $fields = array(
-        'name' => 'mkeromen',
-        'mail' => 'mkeromen@absolunet.com',
-        'pass' => 'sa',
-        'init' => 'mkeromen@absolunet.com',
-        'status' => 1,
-        'roles' => array(
-            $rid => 'Super administrateur'
-        )
-    );
-
-    user_save('', $fields);
+    _create_base_user('mkeromen', 'mkeromen@absolunet.com', 'sa', 'Super administrateur');
 }
 
 function deployment_update_7009() {
-    // Enable menu_import
     module_enable(array('menu_import'));
-    // Ajouter les permissions selon le rôle
     $rid = _get_rid_by_name('Super administrateur');
     _set_user_permissions($rid, SA_ACCESS_PATH);
-    // Création d'un menu
+
     menu_save(array(
         'menu_name' => 'menu-top-menu',
         'title' => 'Menu top',
         'description' => 'Super menu du haut'
     ));
-    // Importation de la structure
+
     menu_import_file(__DIR__ . '/config/menu-top-menu-export.txt', 'menu-top-menu');
-    // Revert de la feature core block config
     features_revert(array('core_config_blocks'));
 }
 
+function deployment_update_7010() {
+    module_enable(array('feature_flag', 'php', 'pathauto', 'content_page'));
+    _set_user_permissions('Super administrateur', PERMISSIONS_PATH);
+
+    features_revert(array('core_config_blocks', 'content_page'));
+    variable_set('pathauto_node_pattern', '[node:title]');
+}
 ?>

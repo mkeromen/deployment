@@ -1,9 +1,32 @@
 <?php
 /**
- * Librairie d'aide pour la migration
- * de certaines features
+ * Librairie d'aide pour la configuration des FEATURES
+ * ! Ces fonctions ne doivent pas être utilisées pour migrer du contenu
  */
 
+/**
+ * Création d'utilisateur de base pour les rôles
+ * webemestre/Super administrateur
+ * @param $name
+ * @param $mail
+ * @param $pass
+ * @param $role_name
+ */
+function _create_base_user($name, $mail, $pass, $role_name) {
+    $rid = _get_rid_by_name($role_name);
+    $fields = array(
+        'name' => $name,
+        'mail' => $mail,
+        'pass' => $pass,
+        'init' => $mail,
+        'status' => 1,
+        'roles' => array(
+            $rid => $role_name
+        )
+    );
+
+    user_save('', $fields);
+}
 /**
  * Création d'une node
  * pour le setup de page de configuration uniquement
@@ -42,10 +65,11 @@ function _set_new_role($role_name, $weight, $file_access_path) {
  * @param $rid
  * @param $file_access_path
  */
-function _set_user_permissions($rid, $file_access_path) {
-    $file_content_access = file_get_contents($file_access_path);
+function _set_user_permissions($role_name, $permissions_path) {
+    $rid = _get_rid_by_name($role_name);
+    $file_content_access = file_get_contents($permissions_path);
     $roles_access_to_active = json_decode($file_content_access, true);
-    user_role_change_permissions($rid, $roles_access_to_active);
+    user_role_change_permissions($rid, $roles_access_to_active[$role_name]);
 }
 
 /**

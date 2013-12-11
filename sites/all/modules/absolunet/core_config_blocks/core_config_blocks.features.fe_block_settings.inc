@@ -14,6 +14,7 @@ function core_config_blocks_default_fe_block_settings() {
 
   $export['menu-menu-top-menu'] = array(
     'cache' => -1,
+    'custom' => 0,
     'delta' => 'menu-top-menu',
     'module' => 'menu',
     'node_types' => array(),
@@ -33,6 +34,8 @@ function core_config_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
+    'title' => '',
+    'visibility' => 0,
   );
 
   $export['system-help'] = array(
