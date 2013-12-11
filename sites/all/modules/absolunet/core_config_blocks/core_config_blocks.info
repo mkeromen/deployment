@@ -10,4 +10,5 @@ features[fe_block_settings][] = menu-menu-top-menu
 features[fe_block_settings][] = system-help
 features[fe_block_settings][] = system-management
 features[fe_block_settings][] = system-navigation
+features[fe_block_settings][] = user-login
 features[features_api][] = api:2

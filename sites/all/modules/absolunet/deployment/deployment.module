@@ -118,4 +118,8 @@ function deployment_update_7010() {
     features_revert(array('core_config_blocks', 'content_page'));
     variable_set('pathauto_node_pattern', '[node:title]');
 }
+
+function deployment_update_7011() {
+    features_revert(array('article', 'core_config_blocks'));
+}
 ?>
