@@ -18,7 +18,7 @@ function article_default_fe_block_settings() {
     'delta' => 'article-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '<?php return true; ?>',
+    'pages' => '<?php return check_blocks_flag(\'block_list_articles\'); ?>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(

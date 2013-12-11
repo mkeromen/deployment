@@ -122,4 +122,8 @@ function deployment_update_7010() {
 function deployment_update_7011() {
     features_revert(array('article', 'core_config_blocks'));
 }
+
+function deployment_update_7012() {
+    features_revert(array('article'));
+}
 ?>
