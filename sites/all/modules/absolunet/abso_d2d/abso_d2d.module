@@ -1,0 +1,22 @@
+<?php
+$common_arguments = array(
+    'source_version' => 7,
+    'group' => 'Drupal content',
+    'source_connection' => 'default',
+    'source_database' => array(
+        'driver' => 'mysql',
+        'database' => 'deployment_dev',
+        'username' => 'root',
+        'password' => '',
+        'host' => '127.0.0.1',
+        'prefix' => '',
+    )
+);
+
+$photo_node_arguments = $common_arguments + array(
+    'machine_name' => 'ComplexContent',
+    'description' => t('Import Drupal 7 complex content'),
+    'source_type' => 'complex_content',
+    'destination_type' => 'complex_content'
+);
+?>

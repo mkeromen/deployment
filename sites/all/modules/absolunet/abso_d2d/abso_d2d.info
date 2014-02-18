@@ -1,0 +1,4 @@
+name = "Abso Drupal 2 Drupal"
+description = "Provide a simple way to migrate content upstream (dev -> preprod)"
+core = 7.x
+package = "Absolunet"
